@@ -1,0 +1,27 @@
+class Solution {
+    List<List<Integer>> res=new ArrayList<>();
+    boolean[]used;
+    private void helperFun(int nums[],List<Integer> al){
+        if(al.size()==nums.length){
+            res.add(new ArrayList<>(al));
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(used[i]) continue;
+            used[i]=true;
+            al.add(nums[i]);
+            helperFun(nums,al);
+
+            al.remove(al.size()-1);
+            used[i]=false;
+        }
+    }
+
+
+    public List<List<Integer>> permute(int[] nums) {
+        res.clear();
+        used=new boolean[nums.length];
+        helperFun(nums,new ArrayList<>());
+        return res;
+    }
+}
